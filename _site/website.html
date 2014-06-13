@@ -49,67 +49,7 @@
 
       <h3>Welcome to #DCFemTech</h3>
 
-<p><em>Resistance is futile.</em></p>
-
-<p>DCFemTech is a collective of several women focused tech groups in the DC, Maryland, and Virginia area.</p>
-
-<h3>This Month's Events</h3>
-<div id="calendar"></div>
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-    // page is now ready, initialize the calendar...
-    $('#calendar').fullCalendar({
-        eventSources: [ {
-                            url: 'https://www.google.com/calendar/feeds/7nffm8fujjn1gim5auqnqbbr24%40group.calendar.google.com/public/basic',
-                            className: 'DCFemTech'
-                        },
-                        {
-                            url: 'https://www.google.com/calendar/feeds/project101dc%40gmail.com/public/basic',
-                            className: 'Project101'
-                        }
-                      ]
-    });
-
-
-    var fetch_meetups = function(){
-
-        var groups = ['Ladies-Who-Code-Washington-DC','Girl-Develop-It-DC', 'dc-pyladies', 'Women-Who-Code-DC' ];
-        var api_url = 'http://api.meetup.com/2/events?order=time&key=2721217a7241b22132f3f30c715f64&group_urlname=NAME&callback=?';
-
-        for (i in groups){
-            var group_name = groups[i];
-            $.getJSON(api_url.replace('NAME', group_name),
-                function(data, text_status, jqxhr){
-
-                    var events = [];
-
-                    for (e in data['results']) {
-                        var event = data['results'][e];
-                        var date = new Date(event['time']).toString();
-                        var o = {
-                           'title': event['group']['name'] + ' - ' + event['name'],
-                           'start': date,
-                           'url': event['event_url'],
-                           'className': event['group']['urlname'].toLowerCase()
-                        };
-                        events.push(o);
-                    }
-
-                    $('#calendar').fullCalendar('addEventSource', events);
-                }
-            )
-
-        }
-
-    }
-
-    fetch_meetups();
-});
-
-</script>
-<script type="text/javascript" src="scripts/ui.js"></script>
+<p>ET phone <a href="index.html">home</a>.</p>
 
 
       </section>

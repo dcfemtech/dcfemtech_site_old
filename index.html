@@ -1,69 +1,68 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Dcfemtech.github.io by dcfemtech</title>
+---
+layout: main
+published: true
+---
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Dcfemtech.github.io</h1>
-        <p class="header">page</p>
+<h3>Welcome to #DCFemTech</h3>
+
+<p><em>Resistance is futile.</em></p>
+
+<p>DCFemTech is a collective of several women focused tech groups in the DC, Maryland, and Virginia area.</p>
+
+<h3>This Month's Events</h3>
+<div id="calendar"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+    $('#calendar').fullCalendar({
+        eventSources: [ {
+                            url: 'https://www.google.com/calendar/feeds/7nffm8fujjn1gim5auqnqbbr24%40group.calendar.google.com/public/basic',
+                            className: 'DCFemTech'
+                        },
+                        {
+                            url: 'https://www.google.com/calendar/feeds/project101dc%40gmail.com/public/basic',
+                            className: 'Project101'
+                        }
+                      ]
+    });
 
 
+    var fetch_meetups = function(){
 
-        <ul>
-          <li><a class="buttons github" href="https://github.com/dcfemtech">GitHub Profile</a></li>
-        </ul>
+        var groups = ['Ladies-Who-Code-Washington-DC','Girl-Develop-It-DC', 'dc-pyladies', 'Women-Who-Code-DC' ];
+        var api_url = 'http://api.meetup.com/2/events?order=time&key=2721217a7241b22132f3f30c715f64&group_urlname=NAME&callback=?';
 
-      </header>
-      <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        for (i in groups){
+            var group_name = groups[i];
+            $.getJSON(api_url.replace('NAME', group_name),
+                function(data, text_status, jqxhr){
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+                    var events = [];
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+                    for (e in data['results']) {
+                        var event = data['results'][e];
+                        var date = new Date(event['time']).toString();
+                        var o = {
+                           'title': event['group']['name'] + ' - ' + event['name'],
+                           'start': date,
+                           'url': event['event_url'],
+                           'className': event['group']['urlname'].toLowerCase()
+                        };
+                        events.push(o);
+                    }
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+                    $('#calendar').fullCalendar('addEventSource', events);
+                }
+            )
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+        }
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+    }
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+    fetch_meetups();
+});
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
-  </body>
-</html>
+</script>
+<script type="text/javascript" src="scripts/ui.js"></script>
