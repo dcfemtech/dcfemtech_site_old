@@ -261,6 +261,10 @@ header ul {
   padding:0;
 }
 
+.event {
+  list-style-type: none;
+}
+
 header li {
 	list-style-type: none;
   width:132px;
