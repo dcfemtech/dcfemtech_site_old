@@ -265,6 +265,11 @@ header ul {
   list-style-type: none;
 }
 
+.sponsorLogo {
+  width: 80px;
+  height: 160px;
+}
+
 header li {
 	list-style-type: none;
   width:132px;
