@@ -266,8 +266,20 @@ header ul {
 }
 
 .sponsorLogo {
-  width: 80px;
-  height: 160px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.sponsorText {
+  display: inline-block;
+}
+
+.sponsors {
+  margin-top: 80px;
+}
+
+.about {
+  margin-top: 80px;
 }
 
 header li {
