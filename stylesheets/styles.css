@@ -266,8 +266,9 @@ header ul {
 }
 
 .sponsorLogo {
-  padding: 0px;
-  margin: 0px;
+  padding: 0 px;
+  margin: 15px;
+  float: left;
 }
 
 .sponsorText {
