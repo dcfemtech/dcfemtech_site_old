@@ -149,6 +149,10 @@ img {
   border: 1px solid #ccc;
 }
 
+a img {
+  border: none;
+}
+
 p img {
   display: inline;
   margin: 0;
